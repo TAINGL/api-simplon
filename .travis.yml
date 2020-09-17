@@ -1,0 +1,27 @@
+
+language: python
+python:
+  - "3.8"
+sudo: required
+
+services:
+  - docker
+
+before_install:
+  - echo 'test'
+  # install heroku CLI
+  - wget -q0- https://toolbelt.heroku.com/install.sh | sh
+  # login to docker registeries (dockerhub + heroku)
+  - echo "$HEROKU_PASSWORD" | docker login -u "$HEROKU_USERNAME" --pasword-stdin registry.heroku.com
+
+script:
+  #- docker tag taing/api-simplon registry.heroku.com/$HEROKU_APP_NAME/web
+
+deploy:
+  provider: script
+  script:
+    heroku container:push web -- app $HEROKU_APP_NAME
+    heroku container:release web --app $HEROKU_APP_NAME
+
+  on:
+    branche: master  
