@@ -15,7 +15,8 @@ before_install:
   - echo "$HEROKU_PASSWORD" | docker login -u "$HEROKU_USERNAME" --pasword-stdin registry.heroku.com
 
 script:
-  #- docker tag taing/api-simplon registry.heroku.com/$HEROKU_APP_NAME/web
+  - docker tag taing/api-simplon registry.heroku.com/$HEROKU_APP_NAME/web
+  
 
 deploy:
   provider: script
