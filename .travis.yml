@@ -4,9 +4,6 @@ python:
   - "3.8"
 sudo: required
 
-services:
-  - docker
-
 before_script:
   - pip install -r requirements.txt
 script: python server.py
@@ -19,5 +16,5 @@ branches:
 deploy:
   provider: heroku
   app: api-simplon
-  api_key:
-    - secure: 
+  api_key: $HEROKU_AUTH_TOKEN
+  skip_cleanup: True
