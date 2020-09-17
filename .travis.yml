@@ -7,22 +7,17 @@ sudo: required
 services:
   - docker
 
-before_install:
-  - echo 'test'
-  # install heroku CLI
-  - wget -q0- https://toolbelt.heroku.com/install.sh | sh
-  # login to docker registeries (dockerhub + heroku)
-  - echo "$HEROKU_PASSWORD" | docker login -u "$HEROKU_USERNAME" --pasword-stdin registry.heroku.com
+before_script:
+  - pip install -r requirements.txt
+script: python server.py
 
-script:
-  - docker tag taing/api-simplon registry.heroku.com/$HEROKU_APP_NAME/web
-  
+
+branches:
+  only:
+  - master
 
 deploy:
-  provider: script
-  script:
-    heroku container:push web -- app $HEROKU_APP_NAME
-    heroku container:release web --app $HEROKU_APP_NAME
-
-  on:
-    branche: master  
+  provider: heroku
+  app: api-simplon
+  api_key:
+    - secure: 
