@@ -6,7 +6,8 @@ sudo: required
 
 before_script:
   - pip install -r requirements.txt
-script: python server.py
+script: 
+  - echo 'python' 
 
 branches:
   only:
@@ -14,6 +15,6 @@ branches:
 
 deploy:
   provider: heroku
-  app: api-simplon
   api_key: $HEROKU_AUTH_TOKEN
+  app: api-simplon
   skip_cleanup: True
